@@ -86,7 +86,7 @@ public class PokedexServices {
             return null;
         }
     }
-    public void eliminarPokemonNombre(String Nome, double Peso , String Misc) {
+    public void eliminarPokemonNombrePokedex(String Nome, double Peso , String Misc) {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             List<Pokedex> pokedexList = session.createQuery("from Pokedex where Nome = :Nome and Peso = :Peso and Misc = :Misc", Pokedex.class)

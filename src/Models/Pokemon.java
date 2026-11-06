@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Pokemon")
+@Table(name = "pokemon")
 public class Pokemon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,11 @@ public class Pokemon {
     private Date Nacemento;
 
     @OneToOne
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "Id", insertable = false,updatable = false)
     private Pokedex pokedexEntry;
 
-    @OneToMany
-    @JoinColumn(name = "Id")
+    @ManyToOne
+    @JoinColumn(name = "Id",insertable = false,updatable = false)
     private  Adestrador adestrador;
 
     public Pokemon() {}

@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "Adestrador")
 public class Adestrador {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
     @Column(name = "Nome", nullable = false, length = 50)
@@ -16,7 +16,10 @@ public class Adestrador {
     @Column(name = "Nacemento")
     private Date Nacemento;
 
-    @OneToMany(mappedBy = "adestrador")
+    @OneToMany(mappedBy = "adestrador",//<-- indicolle onde esta a clave foranea (en Adestrador, propiedade de Pokemon)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
     private List<Pokemon> pokemons;
 
     public Adestrador(){}

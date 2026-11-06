@@ -1,10 +1,11 @@
 package Models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
-@Table(name = "Pokedex")
+@Table(name = "pokedex")
 public class Pokedex {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,7 @@ public class Pokedex {
 
     @Column(name = "Misc")
     private String Misc;
-    @OneToOne(mappedBy = "Pokemon")
+    @OneToOne(mappedBy = "pokedexEntry")
     private Pokemon pokemon;
     public Pokedex(){}
     public Pokedex(Long id, String nome, double peso, String misc) {
@@ -74,5 +75,8 @@ public class Pokedex {
                 ", Peso=" + Peso +
                 ", Misc='" + Misc + '\'' +
                 '}';
+    }
+
+    public void setNacemento(Date nacemento) {
     }
 }
