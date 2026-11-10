@@ -11,18 +11,18 @@ public class Pokemon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "Nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 50)
     private String Nome;
 
-    @Column(name = "Nacemento")
+    @Column(name = "nacemento")
     private Date Nacemento;
 
     @OneToOne
-    @JoinColumn(name = "Id", insertable = false,updatable = false)
+    @JoinColumn(name = "pokedexEntry", insertable = false,updatable = false)
     private Pokedex pokedexEntry;
 
     @ManyToOne
-    @JoinColumn(name = "Id",insertable = false,updatable = false)
+    @JoinColumn(name = "adestrador",insertable = false,updatable = false)
     private  Adestrador adestrador;
 
     public Pokemon() {}

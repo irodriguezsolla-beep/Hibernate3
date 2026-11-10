@@ -4,16 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Adestrador")
+@Table(name = "adestrador")
 public class Adestrador {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "Nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 50)
     private String Nome;
 
-    @Column(name = "Nacemento")
+    @Column(name = "nacemento")
     private Date Nacemento;
 
     @OneToMany(mappedBy = "adestrador",//<-- indicolle onde esta a clave foranea (en Adestrador, propiedade de Pokemon)

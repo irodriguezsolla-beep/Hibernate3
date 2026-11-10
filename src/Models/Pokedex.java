@@ -11,13 +11,13 @@ public class Pokedex {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "Nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 50)
     private String Nome;
 
-    @Column(name = "Peso", precision = 10, scale = 2)
+    @Column(name = "peso", precision = 10, scale = 2)
     private double Peso;
 
-    @Column(name = "Misc")
+    @Column(name = "misc")
     private String Misc;
     @OneToOne(mappedBy = "pokedexEntry")
     private Pokemon pokemon;

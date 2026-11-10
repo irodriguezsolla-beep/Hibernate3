@@ -1,15 +1,15 @@
+import FileServices.FileServices;
 import Models.Adestrador;
 import Models.Pokedex;
 import Models.Pokemon;
 import Services.AdestradorServices;
 import Services.PokedexServices;
 import  Services.PokemonServices;
-import HibernateConfig.HibernateConfig;
-import Services.PokemonServices;
-import XML.toXML;
+import java.time.LocalDate;
 
-import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Main {
@@ -40,24 +40,21 @@ public class Main {
 
 
         System.out.println("--- Insertando 2 adestradores ---");
-        try {
-            /* dataAsh = .parse("22/05/1997");
-            Date dataMisty = sdf.parse("09/01/1998");
-*/
-            service2.crearAdestrador("Ash", null);
-            service2.crearAdestrador("Misty", null);
-            System.out.println("Os dous adestradores foron engadidos con éxito.");
-        } catch (Exception e) {
-            System.err.println("Erro ao engadir adestradores: " + e.getMessage());
-        }
+        Date dataAsh = new GregorianCalendar(1997, Calendar.MAY, 22).getTime();
+        Date dataMisty = new GregorianCalendar(1998, Calendar.JANUARY, 9).getTime();
+
+        service2.crearAdestrador("Ash", dataAsh);
+        service2.crearAdestrador("Misty", dataMisty);
+
         //Inserir 12 pokemons na taboa de pokemon (6 para cada adestrador)
         System.out.println("--- Insertando 6 a cada entrenador ---");
-        List<Pokedex> pokemons = service.listarPokedex();
+        List<Pokedex> pokedex = service.listarPokedex();
         List<Adestrador> adestrador = service2.listarAdestrador();
 
-        if (pokemons != null && adestrador != null && adestrador.size() >= 2) {
-            for (int i = 0; i < pokemons.size(); i++) {
-                Pokedex p = pokemons.get(i);
+        if (pokedex != null && adestrador != null && adestrador.size() >= 2) {
+
+            for (int i = 0; i < pokedex.size(); i++) {
+                Pokedex p = pokedex.get(i);
                 Adestrador a;
                 if (i < 6) {
                     a = adestrador.get(0);
@@ -67,13 +64,83 @@ public class Main {
                 service3.crearPokemon(p.getNome(), null, p, a);
             }
         }
-        System.out.println("--- Leer tabla Pokemon---");
+        //leer tablas
+        System.out.println("--- Leer tabla Pokemon1---");
         List<Pokemon> pokemon = service3.listarPokemon();
         if(pokemon != null){
             for(Pokemon p : pokemon){
                 System.out.println(p);
             }
         }
+        System.out.println("--- Leer tabla Adestrador1---");
+        if(adestrador != null){
+            for(Adestrador a : adestrador){
+                System.out.println(a);
+            }
+        }
+
+        System.out.println("--- Leer tabla Pokedex1---");
+        if(pokedex != null){
+            for(Pokedex p : pokedex){
+                System.out.println(p);
+            }
+        }
+
+        //Exportar nun arquivo duas entradas da pokedex serializadas.
+        System.out.println("--- Exportar nun arquivo duas entradas da pokedex serializadas---");
+        for(int i = 0; i<2; i++){
+            FileServices.SerialPokedex(pokedex.get(i));
+        }
+
+        System.out.println("--Exportar en XML duas entradas de adestrador--");
+        FileServices.Adestrador(adestrador,"Adestrador.xml");
+
+        System.out.println("--Modificar duas entradas na pokedex--");
+        if(pokedex != null){
+            for(int i = 0; i<2; i++){
+                double npeso = pokedex.get(i).getPeso() * 2;
+                service.updatePokedex(pokedex.get(i).getId(),pokedex.get(i).getNome(),npeso,pokedex.get(i).getMisc());
+            }
+        }
+
+        System.out.println("--Modificar dous adestradores--");
+        if(adestrador != null){
+            Date ndate = new GregorianCalendar(2000, Calendar.MAY, 22).getTime();
+            for(Adestrador a : adestrador){
+                service2.updateAdestrador(a.getId(),a.getNome(),ndate);
+            }
+        }
+
+        System.out.println("--Modificar 4 pokemons--");
+        if(pokemon != null){
+            for(int i = 0; i<4; i++){
+                String nNome = pokemon.get(i).getNome()+"-perdido";
+                service3.updatePokemon(pokemon.get(i).getId(),nNome,null,pokemon.get(i).getPokedexEntry(),pokemon.get(i).getAdestrador());
+
+            }
+        }
+
+        //leer tablas
+        System.out.println("--- Leer tabla Pokemon2---");
+        if(pokemon != null){
+            for(Pokemon p : pokemon){
+                System.out.println(p);
+            }
+        }
+        System.out.println("--- Leer tabla Adestrador2---");
+        if(adestrador != null){
+            for(Adestrador a : adestrador){
+                System.out.println(a);
+            }
+        }
+
+        System.out.println("--- Leer tabla Pokedex2---");
+        if(pokedex != null){
+            for(Pokedex p : pokedex){
+                System.out.println(p);
+            }
+        }
+
     }
 
 
