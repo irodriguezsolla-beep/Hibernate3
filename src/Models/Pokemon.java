@@ -1,5 +1,4 @@
 package Models;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,11 +17,11 @@ public class Pokemon {
     private Date Nacemento;
 
     @OneToOne
-    @JoinColumn(name = "pokedexEntry", insertable = false,updatable = false)
+    @JoinColumn(name = "pokedexEntry")
     private Pokedex pokedexEntry;
 
     @ManyToOne
-    @JoinColumn(name = "adestrador",insertable = false,updatable = false)
+    @JoinColumn(name = "adestrador")
     private  Adestrador adestrador;
 
     public Pokemon() {}
