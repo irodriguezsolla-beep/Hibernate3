@@ -141,8 +141,70 @@ public class Main {
             }
         }
 
+        System.out.println("--- Importar os datos serializados---");
+        List<Pokedex> pokedex2 = FileServices.DeserializaPokedex("serial-Pokedex");
+
+        System.out.println("--- Modifica-las entradas da pokédex coos datos serializados---");
+
+        if(pokedex2 != null){
+            for(Pokedex p: pokedex2){
+                service.updatePokedex(p.getId(), p.getNome(),p.getPeso(),p.getMisc());
+            }
+        }
+
+        System.out.println("--- Importar os datos xml---");
+        List<Adestrador> adestrador2 = FileServices.importarAdestrador("Adestrador.xml");
+
+        System.out.println("--- Modifica-las entradas de adestradores coos datos do arquivo---");
+        if(adestrador2!= null){
+            for(Adestrador a: adestrador2){
+                service2.updateAdestrador(a.getId(),a.getNome(),a.getNacemento());
+            }
+        }
+
+        List<Pokedex> pokedex3 = service.listarPokedex();
+        List<Adestrador> adestrador3 = service2.listarAdestrador();
+        List<Pokemon> pokemon3 = service3.listarPokemon();
+
+        System.out.println("--- Leer tabla Pokemon3---");
+        if(pokemon3 != null){
+            for(Pokemon p : pokemon3){
+                System.out.println(p);
+            }
+        }
+        System.out.println("--- Leer tabla Adestrador3---");
+        if(adestrador3 != null){
+            for(Adestrador a : adestrador3){
+                System.out.println(a);
+            }
+        }
+
+        System.out.println("--- Leer tabla Pokedex3---");
+        if(pokedex3 != null){
+            for(Pokedex p : pokedex3){
+                System.out.println(p);
+            }
+        }
+
+        System.out.println("---Eliminar pokemons---");
+        if(pokemon3 != null){
+            for(Pokemon p : pokemon3){
+               service3.eliminarPokemon(p.getId());
+            }
+        }
+        System.out.println("--- Eliminar Adestradores---");
+        if(adestrador3 != null){
+            for(Adestrador a : adestrador3){
+                service2.eliminarAdestrador(a.getId());
+            }
+        }
+
+        System.out.println("--- Eliminar  Pokedex---");
+        if(pokedex3 != null){
+            for(Pokedex p : pokedex3){
+                service.eliminarPokedex(p.getId());
+            }
+        }
+
     }
-
-
-
 }
